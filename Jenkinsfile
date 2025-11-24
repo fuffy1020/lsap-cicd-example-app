@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools {
-        nodejs "lsap-cicd-example-app"
+        nodejs 'NodeJS 24.11.1'
     }
     stages {
         stage('Install Dependencies') {
