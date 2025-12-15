@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        nodejs 'node-20'
+    }
+
     environment {
         DOCKER_HUB_USER = 'fuffy1020'
         IMAGE_NAME = 'hw6-cicd'
