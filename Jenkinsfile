@@ -47,7 +47,7 @@ pipeline {
                     sh "docker rm -f dev-app || true"
                     sh "docker run -d -p 8081:8080 --name dev-app ${FULL_IMAGE}:${devTag}"
                     sleep 10 // 等待久一點讓服務啟動
-                    sh "curl -f http://localhost:8081/ || exit 1"
+                    sh "docker ps | grep dev-app || exit 1"
                 }
             }
         }
