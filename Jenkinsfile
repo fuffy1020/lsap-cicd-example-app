@@ -91,7 +91,7 @@ pipeline {
                 if (webhookUrl) {
                     def message = """
                     {
-                        "content": "🚨 **Build Failed!** 🚨\\n**Name:** 你的名字\\n**ID:** 你的學號\\n**Job:** ${env.JOB_NAME}\\n**Build:** ${env.BUILD_NUMBER}\\n**Branch:** ${env.BRANCH_NAME}\\n**Repo:** ${env.GIT_URL}\\n**Status:** FAILURE"
+                        "content": "🚨 **Build Failed!** 🚨\\n**Name:** 朱冠宇\\n**ID:** B10705043\\n**Job:** ${env.JOB_NAME}\\n**Build:** ${env.BUILD_NUMBER}\\n**Branch:** ${env.BRANCH_NAME}\\n**Repo:** ${env.GIT_URL}\\n**Status:** FAILURE"
                     }
                     """
                     sh "curl -H 'Content-Type: application/json' -d '${message}' ${webhookUrl}"
