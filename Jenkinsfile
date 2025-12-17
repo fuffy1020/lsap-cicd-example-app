@@ -31,22 +31,26 @@ pipeline {
             }
             steps {
                 script {
+                    def pkgVersion = sh(script: "node -p \"require('./package.json').version\"", returnStdout: true).trim()
+                    def semanticTag = "v${pkgVersion}"
+                    
                     def devTag = "dev-${env.BUILD_NUMBER}"
-                    echo "Building Staging Artifact: ${devTag}"
+                    echo "Building Staging Artifact: ${devTag} AND Semantic Tag: ${semanticTag}"
                     
                     withCredentials([usernamePassword(credentialsId: DOCKER_CREDS_ID, passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER')]) {
-                        // 登入 Docker Hub
                         sh "echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin"
                         
-                        // 建置與推送
                         sh "docker build -t ${FULL_IMAGE}:${devTag} ."
                         sh "docker push ${FULL_IMAGE}:${devTag}"
+
+                        sh "docker tag ${FULL_IMAGE}:${devTag} ${FULL_IMAGE}:${semanticTag}"
+                        sh "docker push ${FULL_IMAGE}:${semanticTag}"
                     }
                     
-                    // 部署與驗證
-                    sh "docker rm -f dev-app || true"
+                    sh "docker ps | grep dev-app && docker rm -f dev-app || true"
                     sh "docker run -d -p 8081:8080 --name dev-app ${FULL_IMAGE}:${devTag}"
-                    sleep 10 // 等待久一點讓服務啟動
+                    
+                    sleep 5
                     sh "docker ps | grep dev-app || exit 1"
                 }
             }
