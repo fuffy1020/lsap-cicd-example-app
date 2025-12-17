@@ -1,5 +1,4 @@
 // app.js
-THIS_IS_AN_ERROR_FOR_SCREENSHOT
 const express = require("express");
 const app = express();
 
