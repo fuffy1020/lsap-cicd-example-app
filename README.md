@@ -1,4 +1,4 @@
-# 114-1 LSAP CI/CD Example App
+# 114-1 LSAP CI/CD HW 6
 
 ## Overview
 This is a lightweight Node.js application created for LSAP students to learn the basics of CI/CD (Continuous Integration and Continuous Deployment). The app is intentionally simple, making it easy to experiment with automation tools and deployment pipelines.
