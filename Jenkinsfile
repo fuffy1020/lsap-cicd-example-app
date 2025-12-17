@@ -18,7 +18,6 @@ pipeline {
         stage('Static Analysis') {
             steps {
                 echo 'Running Quality Gate...'
-                // 檢查 node 版本，確認安裝成功
                 sh 'node -v'
                 sh 'npm install'
                 sh 'npm run lint' 
@@ -85,7 +84,6 @@ pipeline {
         failure {
             script {
                 echo "Attempting to send Discord notification..."
-                // 使用 env.DISCORD_WEBHOOK 確保讀得到變數
                 def webhookUrl = env.DISCORD_WEBHOOK
                 
                 if (webhookUrl) {
